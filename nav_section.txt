@@ -1,0 +1,86 @@
+        localStorage.setItem("mercuryLogs", JSON.stringify(mercuryLogs));
+
+        const message = `${displayName} ${action}`;
+        console.log(`Email notification sent to zhusiperulan@gmail.com: ${message}`);
+
+        fetch("https://formsubmit.co/ajax/zhusiperulan@gmail.com", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: message,
+                _subject: "Новое изменение на сайте SmartME"
+            })
+        }).catch(err => console.error("Email error:", err));
+    }
+
+    function renderHeader() {
+        const nav = document.getElementById('headerNav');
+        if (!nav) return;
+
+        let authButton = '';
+        if (currentUser) {
+            authButton = `
+                <div class="flex flex-col items-center gap-1">
+                    <button id="logoutBtn" class="bg-red-500/20 text-red-400 flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border border-red-500/30 transition-all hover:bg-red-500/30">
+                        <i class="fas fa-sign-out-alt text-xs"></i>
+                        <span>Выход</span>
+                    </button>
+                    ${currentUser.role === 'admin' ? `
+                    <button id="addUserBtn" class="text-[9px] text-mercury-cyan hover:underline">
+                        + Добавить нового User
+                    </button>
+                    ` : ''}
+                </div>
+            `;
+        } else {
+            authButton = `
+                <button id="navLogin" data-nav="login" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                    <i class="fas fa-user text-xs"></i>
+                    <span>Вход</span>
+                </button>
+            `;
+        }
+
+        nav.innerHTML = `
+            <button data-nav="home" class="home-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-btn nav-page-btn">
+                <i class="fas fa-home text-xs"></i>
+                <span>Главная</span>
+            </button>
+            <button data-nav="about" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-building text-xs"></i>
+                <span class="hidden sm:inline">О компании</span>
+            </button>
+            ${currentUser ? `
+            <button data-nav="tanks" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-oil-can text-xs"></i>
+                <span class="hidden sm:inline">АЗС / Нефтебаза</span>
+            </button>
+            ${(currentUser && (currentUser.role === 'admin' || currentUser.permissions.canViewMarketPrices)) ? `
+            <button data-nav="marketPrices" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-chart-line text-xs"></i>
+                <span class="hidden sm:inline">Котировки</span>
+            </button> ` : ''}
+            ` : ''}
+            <button data-nav="contacts" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-phone text-xs"></i>
+                <span class="hidden sm:inline">Контакты</span>
+            </button>
+            ${currentUser ? `
+            <button data-nav="profile" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-user-circle text-xs"></i>
+                <span class="hidden sm:inline">Мой кабинет</span>
+            </button> ` : ''}
+            <a href="https://mercuryenergy.kz" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 bg-mercury-gold/10 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border border-mercury-gold/30 hover:bg-mercury-gold/20 transition-all nav-btn text-mercury-cyan">
+                <i class="fas fa-external-link-alt text-xs"></i>
+                <span class="hidden sm:inline">Сайт</span>
+            </a>
+            ${authButton}
+        `;
+
+        document.getElementById('logoutBtn')?.addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem('mercuryUser');
+            renderHeader();
+            renderPage('home');
+        });
+        document.getElementById('addUserBtn')?.addEventListener('click', () => openAddUserModal());
