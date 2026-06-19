@@ -1,0 +1,31 @@
+                <i class="fas fa-home text-xs"></i>
+                <span>Главная</span>
+            </button>
+            <button data-nav="about" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-building text-xs"></i>
+                <span class="hidden sm:inline">О компании</span>
+            </button>
+            ${currentUser ? `
+            <button data-nav="tanks" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-oil-can text-xs"></i>
+                <span class="hidden sm:inline">АЗС / Нефтебаза</span>
+            </button>
+            ${(currentUser && (currentUser.role === 'admin' || currentUser.permissions.canViewMarketPrices)) ? `
+            <button data-nav="marketPrices" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-chart-line text-xs"></i>
+                <span class="hidden sm:inline">Котировки</span>
+            </button> ` : ''}
+            ` : ''}
+            <button data-nav="contacts" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-phone text-xs"></i>
+                <span class="hidden sm:inline">Контакты</span>
+            </button>
+            ${currentUser ? `
+            <button data-nav="profile" class="small-nav-btn flex items-center gap-1 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border transition-all nav-page-btn">
+                <i class="fas fa-user-circle text-xs"></i>
+                <span class="hidden sm:inline">Мой кабинет</span>
+            </button> ` : ''}
+            <a href="https://mercuryenergy.kz" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 bg-mercury-gold/10 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium border border-mercury-gold/30 hover:bg-mercury-gold/20 transition-all nav-btn text-mercury-cyan">
+                <i class="fas fa-external-link-alt text-xs"></i>
+                <span class="hidden sm:inline">Сайт</span>
+            </a>
