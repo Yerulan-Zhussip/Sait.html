@@ -312,6 +312,15 @@
     let selectedTankCity = null;
     let users = JSON.parse(localStorage.getItem("mercuryUsers"));
     let currentUser = JSON.parse(localStorage.getItem("mercuryUser")) || null;
+    // Migration: ensure all users have the new market prices permissions
+    users.forEach(u => {
+        if (u.permissions) {
+            if (u.permissions.canViewMarketPrices === undefined) u.permissions.canViewMarketPrices = (u.role === 'admin');
+            if (u.permissions.canEditMarketPrices === undefined) u.permissions.canEditMarketPrices = (u.role === 'admin');
+        }
+    });
+    localStorage.setItem('mercuryUsers', JSON.stringify(users));
+
     let mercuryLogs = [];
     try {
         mercuryLogs = JSON.parse(localStorage.getItem("mercuryLogs")) || [];
