@@ -2,91 +2,128 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mercury Energy — поставки авиационного топлива в Казахстане</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mercury Energy</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root{--ink:#14213D;--mute:#667085;--line:#E7E9EE;--soft:#FFF8EB;--amber:#F59E0B;--orange:#F97316}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{font:16px/1.6 Inter,system-ui,sans-serif;color:var(--ink);background:#fff}
+body{font:15px/1.6 Inter,system-ui,sans-serif;color:var(--ink);background:#fff;min-height:100vh}
+[hidden]{display:none!important}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;gap:28px;height:68px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
-.logo i{width:34px;height:34px;border-radius:10px;background:var(--orange);display:grid;place-items:center}
-nav{display:flex;gap:6px;flex:1}
-nav button{background:none;border:0;cursor:pointer;font:500 14px Inter,sans-serif;color:var(--mute);padding:8px 14px;border-radius:999px;white-space:nowrap}
-nav button:hover{color:var(--orange)}
-nav button.on{background:var(--soft);color:var(--orange);font-weight:600}
-.page{animation:in .3s ease-out}
-.page[hidden]{display:none}
-@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-#newsAll{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-#newsAll .nc{flex:none}
-.btn{display:inline-block;border:0;cursor:pointer;font:600 15px Inter,sans-serif;color:#fff;background:linear-gradient(135deg,var(--amber),var(--orange));padding:13px 24px;border-radius:12px}
-.btn:hover{filter:brightness(.95)}
-.btn.ghost{background:var(--soft);color:var(--orange);border:1px solid var(--amber)}
-.btn.sm{padding:8px 14px;font-size:13px;border-radius:10px}
-.hero{background:linear-gradient(180deg,#fff,var(--soft));border-bottom:1px solid var(--line);padding:84px 0 64px}
-.tag{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--orange)}
-h1{font-size:clamp(34px,5.5vw,58px);line-height:1.08;font-weight:800;letter-spacing:-.02em;max-width:720px;margin:14px 0 18px}
-.lead{font-size:18px;color:var(--mute);max-width:560px}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
-.fact{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
-.fact b{display:block;font-size:28px;font-weight:800;color:var(--orange)}
-.fact span{font-size:13px;color:var(--mute)}
-section{padding:72px 0}
-h2{font-size:30px;font-weight:800;letter-spacing:-.01em;margin:6px 0 8px}
-.sub{color:var(--mute);margin-bottom:28px}
-h4{font-size:15px;margin:26px 0 12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
-.pc{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff}
-.pc small{display:block;color:var(--mute);font-size:12px}
-.pc span{font-weight:800;color:var(--orange);font-size:18px;white-space:nowrap}
-.slider{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
-.nc{flex:0 0 min(340px,78%);scroll-snap-align:start;border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;background:#fff;transition:.2s}
-.nc:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(20,33,61,.1)}
-.nc img{width:100%;height:170px;object-fit:cover;background:var(--line);display:block}
+#app{max-width:1280px;margin:0 auto;padding:20px 16px}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:24px;letter-spacing:-.02em;cursor:pointer}
+.brand i{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--amber),var(--orange));display:grid;place-items:center}
+#headerNav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;font:500 12px Inter,sans-serif;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;transition:.2s}
+.pill:hover{border-color:var(--amber);color:var(--orange);transform:translateY(-2px)}
+.pill.on{background:var(--soft);border-color:var(--amber);color:var(--orange);font-weight:600}
+.pill.out{color:#DC2626;border-color:#FECACA;background:#FEF2F2}
+.page{animation:in .35s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero{position:relative;border-radius:28px;overflow:hidden;height:260px;display:grid;place-items:center;text-align:center;color:#fff;padding:0 16px;background:linear-gradient(135deg,#14213D,#25427A) center/cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(20,33,61,.5),rgba(20,33,61,.78))}
+.hero>div{position:relative}
+.hero h1{font-size:clamp(32px,6vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.hero h1 b{color:var(--amber)}
+.hero p{margin-top:10px;opacity:.9;font-size:16px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 4px 18px rgba(20,33,61,.06);margin-top:24px}
+.ph{text-align:center;margin-bottom:10px}
+.ph h2{font-size:20px;font-weight:800;color:var(--orange);display:flex;gap:8px;justify-content:center;align-items:center}
+.ph p{font-size:12px;color:var(--mute)}
+.sec h3{font-size:14px;font-weight:700;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:6px;margin:20px 0 12px}
+.sec h3 i{color:var(--amber)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.pc{background:var(--soft);border:1px solid #FDE7B8;border-radius:16px;padding:14px 16px;transition:.2s}
+.pc:hover{border-color:var(--amber);transform:translateY(-3px)}
+.pc small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;color:var(--mute)}
+.pc b{font-size:19px;color:var(--orange)}
+.slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:20px;padding:4px 0 14px;scrollbar-width:none}
+.slider::-webkit-scrollbar{display:none}
+.nc{flex:0 0 85%;scroll-snap-align:start;border:1px solid var(--line);border-radius:20px;overflow:hidden;cursor:pointer;background:#fff;transition:.2s}
+@media(min-width:768px){.nc{flex-basis:46%}}
+@media(min-width:1024px){.nc{flex-basis:calc((100% - 40px)/3)}}
+.nc:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(20,33,61,.1);border-color:var(--amber)}
+.nc img{width:100%;height:180px;object-fit:cover;display:block;background:var(--line)}
 .nc div{padding:16px}
 .nc time{font-size:12px;font-weight:700;color:var(--orange)}
 .nc h3{font-size:16px;line-height:1.35;margin-top:4px}
-.alt{background:#FAFAFB;border-block:1px solid var(--line)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.two p{color:var(--mute);margin-bottom:14px}
-input,select,textarea{width:100%;font:15px Inter,sans-serif;color:var(--ink);padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.panel h2.t{font-size:24px;font-weight:800;margin-bottom:10px}
+.panel p{color:var(--mute);margin-bottom:12px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.fact{background:var(--soft);border:1px solid #FDE7B8;border-radius:16px;padding:16px}
+.fact b{display:block;font-size:22px;font-weight:800;color:var(--orange)}
+.fact span{font-size:12px;color:var(--mute)}
+.btn{display:inline-block;border:0;cursor:pointer;font:600 14px Inter,sans-serif;color:#fff;background:linear-gradient(135deg,var(--amber),var(--orange));padding:12px 22px;border-radius:12px}
+.btn:hover{filter:brightness(.95)}
+.btn.ghost{background:var(--soft);color:var(--orange);border:1px solid var(--amber)}
+.btn.sm{padding:8px 14px;font-size:13px;border-radius:10px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+input,select,textarea{width:100%;font:15px Inter,sans-serif;color:var(--ink);padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:12px}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);border-color:transparent}
-label{font-size:13px;font-weight:600;display:block;margin-bottom:5px}
-footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mute);font-size:14px}
-dialog{border:0;border-radius:20px;padding:0;width:min(560px,94vw);max-height:90vh;box-shadow:0 20px 60px rgba(20,33,61,.3)}
+label{font-size:12px;font-weight:600;display:block;margin-bottom:4px}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:30px 0 10px}
+dialog{border:0;border-radius:22px;padding:0;width:min(560px,94vw);max-height:90vh;box-shadow:0 20px 60px rgba(20,33,61,.3)}
 dialog::backdrop{background:rgba(20,33,61,.55)}
 #dlgBody{padding:26px;max-height:88vh;overflow:auto}
-#dlgBody h3{margin:22px 0 10px}
+#profileBody h2{font-size:22px}
+#profileBody h3{margin:22px 0 10px}
 .row{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
 .row span{flex:1;font-size:14px}
 .row input{width:130px;margin:0}
 .mute{color:var(--mute);font-size:14px}
-.chips{display:flex;gap:6px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
 .ok{color:#15803D;font-weight:600}
-@media(max-width:760px){header .wrap{flex-wrap:wrap;height:auto;padding:12px 20px;gap:8px}.logo{flex:1}nav{order:3;width:100%;overflow-x:auto}.facts{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}section{padding:52px 0}.hero{padding:56px 0 44px}}
+@media(max-width:639px){.lbl{display:none}.two{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.hero{height:220px}.panel{padding:20px}}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <a class="logo" href="#" data-nav="home"><i><svg width="18" height="18" viewBox="0 0 100 100"><polygon fill="#fff" points="56,8 22,58 46,58 40,94 78,40 54,40"/></svg></i>Mercury Energy</a>
-  <nav><button data-nav="home">Главная</button><button data-nav="about">О компании</button><button data-nav="news">Новости</button><button data-nav="request">Заявка</button><button data-nav="contacts">Контакты</button></nav>
-  <button class="btn ghost sm" id="acc">Войти</button>
-</div></header>
+<div id="app">
+<header>
+  <div class="brand" data-nav="home"><i><svg width="20" height="20" viewBox="0 0 100 100"><polygon fill="#fff" points="56,8 22,58 46,58 40,94 78,40 54,40"/></svg></i>SmartME</div>
+  <div id="headerNav">
+    <button class="pill" data-nav="home"><i class="fas fa-home"></i>Главная</button>
+    <button class="pill" data-nav="about"><i class="fas fa-building"></i><span class="lbl">О компании</span></button>
+    <button class="pill" data-nav="contacts"><i class="fas fa-phone"></i><span class="lbl">Контакты</span></button>
+    <button class="pill" data-nav="profile" id="navProfile" hidden><i class="fas fa-user-circle"></i><span class="lbl">Мой кабинет</span></button>
+    <a class="pill" href="https://mercuryenergy.kz/ru/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i><span class="lbl">Сайт</span></a>
+    <button class="pill" data-nav="login" id="navLogin"><i class="fas fa-user"></i>Вход</button>
+    <button class="pill out" id="navOut" hidden><i class="fas fa-sign-out-alt"></i>Выход</button>
+  </div>
+</header>
 
 <main>
 <div class="page" id="p-home">
-<div class="hero"><div class="wrap">
-  <div class="tag">Авиационное топливо · Казахстан</div>
-  <h1>От бескрайних степей к вечному небу</h1>
-  <p class="lead">Mercury Energy — один из ведущих поставщиков авиационного топлива в Казахстане. Собственная нефтебаза, лаборатория и круглосуточная диспетчерская.</p>
-  <div class="cta"><button class="btn" data-nav="request">Оставить заявку</button><button class="btn ghost" data-nav="about">О компании</button></div>
+  <div class="hero" style="background-image:linear-gradient(135deg,#14213D,#25427A),url('kart1.png')"><div>
+    <h1>Smart <b>Mercury</b> Energy</h1>
+    <p>От бескрайних степей к вечному небу</p>
+  </div></div>
+
+  <div class="panel">
+    <div class="ph">
+      <h2><i class="fas fa-tags"></i> Топливные цены</h2>
+      <p id="upd"></p>
+      <button class="pill" id="editLink" data-nav="profile" hidden style="margin-top:8px"><i class="fas fa-edit"></i>Редактировать</button>
+    </div>
+    <div class="sec"><h3><i class="fas fa-oil-can"></i> Дизельное топливо</h3><div class="grid" id="diesel"></div></div>
+    <div class="sec"><h3><i class="fas fa-gas-pump"></i> Авиатопливо и бензин</h3><div class="grid" id="other"></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><h2><i class="fas fa-newspaper"></i> Новости</h2><p>Листайте вправо, нажмите на новость, чтобы прочитать полностью</p></div>
+    <div class="slider" id="newsList"></div>
+  </div>
+</div>
+
+<div class="page" id="p-about" hidden><div class="panel" style="margin-top:0">
+  <h2 class="t">О компании</h2>
+  <div class="two">
+    <p>Мы обеспечиваем бесперебойные поставки качественного авиатоплива в крупнейшие аэропорты страны. Круглосуточная диспетчерская следит за процессами в реальном времени, собственная лаборатория проверяет каждую партию, а автоматическая система пожаротушения Siemens обеспечивает безопасность.</p>
+    <p>Нефтебаза в Алматы — склад класса «А» для приёма, хранения и выдачи светлых нефтепродуктов. Резервуарный парк: 13 РВС, ж/д эстакада на 6 постов. От вокзала «Алматы-1» — 3 км, от аэропорта — 6 км.</p>
+  </div>
   <div class="facts">
     <div class="fact"><b>19 000 м³</b><span>объём хранения</span></div>
     <div class="fact"><b>13</b><span>резервуаров</span></div>
@@ -94,52 +131,35 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
     <div class="fact"><b>JIG 2</b><span>стандарт качества</span></div>
   </div>
 </div></div>
-<section><div class="wrap">
-  <div class="tag">Цены</div><h2>Топливные цены</h2><p class="sub" id="upd"></p>
-  <h4>Дизельное топливо летнее</h4><div class="grid" id="diesel"></div>
-  <h4>Авиатопливо и бензин</h4><div class="grid" id="other"></div>
-</div></section>
-<section class="alt"><div class="wrap">
-  <div class="tag">Новости</div><h2>Последние новости</h2><p class="sub">Листайте вправо, чтобы увидеть больше.</p>
-  <div class="slider" id="newsList"></div>
-  <div style="margin-top:18px"><button class="btn ghost" data-nav="news">Все новости</button></div>
-</div></section>
-</div>
 
-<div class="page" id="p-about" hidden><section><div class="wrap two">
-  <div><div class="tag">О компании</div><h2>Надёжные поставки и контроль качества</h2>
-    <p>Мы обеспечиваем бесперебойные поставки качественного авиатоплива в крупнейшие аэропорты страны. Круглосуточная диспетчерская следит за процессами в реальном времени, собственная лаборатория проверяет каждую партию, а автоматическая система пожаротушения Siemens обеспечивает безопасность.</p></div>
-  <div><h2 style="margin-top:34px">Нефтебаза в Алматы</h2>
-    <p>Склад класса «А» принимает, хранит и выдаёт светлые нефтепродукты. Резервуарный парк: 13 РВС, ж/д эстакада на 6 постов. От вокзала «Алматы-1» — 3 км, от аэропорта — 6 км.</p></div>
-</div></section></div>
+<div class="page" id="p-contacts" hidden><div class="panel" style="margin-top:0">
+  <h2 class="t">Контакты</h2>
+  <div class="two">
+    <div>
+      <p>г. Алматы, Турксибский район, ул. Свободная 136/2</p>
+      <div class="cta"><a class="btn" href="tel:+77273132596"><i class="fas fa-phone"></i> +7 (727) 313 25 96</a><a class="btn ghost" href="mailto:info@mercuryenergy.kz"><i class="fas fa-envelope"></i> info@mercuryenergy.kz</a></div>
+    </div>
+    <form id="rf">
+      <h3 style="margin-bottom:12px">Заявка на поставку</h3>
+      <label>Имя</label><input name="name" required>
+      <label>Телефон</label><input name="phone" type="tel" required>
+      <label>Вид топлива</label><select name="fuel"><option>Jet A-1</option><option>ТС-1</option><option>Дизель</option><option>Бензин</option></select>
+      <label>Объём (литры или тонны)</label><input name="vol">
+      <label>Комментарий</label><textarea name="note" rows="3"></textarea>
+      <button class="btn">Отправить заявку</button> <span id="rmsg" class="ok"></span>
+    </form>
+  </div>
+</div></div>
 
-<div class="page" id="p-news" hidden><section><div class="wrap">
-  <div class="tag">Новости</div><h2>Новости компании</h2><p class="sub">Нажмите на новость, чтобы прочитать полностью.</p>
-  <div id="newsAll"></div>
-</div></section></div>
+<div class="page" id="p-login" hidden><div class="panel" style="margin:0 auto;max-width:440px">
+  <h2 class="t">Вход для сотрудников</h2>
+  <form id="lf"><label>Почта</label><input name="e" type="email" required><label>Пароль</label><input name="p" type="password" required><button class="btn">Войти</button> <span id="lmsg" style="color:#DC2626"></span></form>
+</div></div>
 
-<div class="page" id="p-request" hidden><section><div class="wrap two">
-  <div><div class="tag">Заявка</div><h2>Заявка на поставку</h2><p class="sub">Оставьте данные, и мы свяжемся с вами.</p></div>
-  <form id="rf">
-    <label>Имя</label><input name="name" required>
-    <label>Телефон</label><input name="phone" type="tel" required>
-    <label>Вид топлива</label><select name="fuel"><option>Jet A-1</option><option>ТС-1</option><option>Дизель</option><option>Бензин</option></select>
-    <label>Объём (литры или тонны)</label><input name="vol">
-    <label>Комментарий</label><textarea name="note" rows="3"></textarea>
-    <button class="btn">Отправить заявку</button> <span id="rmsg" class="ok"></span>
-  </form>
-</div></section></div>
-
-<div class="page" id="p-contacts" hidden><section><div class="wrap">
-  <div class="tag">Контакты</div><h2>Свяжитесь с нами</h2>
-  <p class="sub">г. Алматы, Турксибский район, ул. Свободная 136/2</p>
-  <div class="cta"><a class="btn" href="tel:+77273132596">+7 (727) 313 25 96</a><a class="btn ghost" href="mailto:info@mercuryenergy.kz">info@mercuryenergy.kz</a><a class="btn ghost" href="https://mercuryenergy.kz/ru/" target="_blank" rel="noopener">Сайт компании</a></div>
-</div></section></div>
-
-<div class="page" id="p-profile" hidden><section><div class="wrap" style="max-width:760px"><div id="profileBody"></div></div></section></div>
+<div class="page" id="p-profile" hidden><div class="panel" style="margin:0 auto;max-width:760px"><div id="profileBody"></div></div></div>
 </main>
-<footer><div class="wrap">© 2026 Mercury Energy. Все права защищены.</div></footer>
-
+<footer>© 2026 Mercury Energy</footer>
+</div>
 <dialog id="dlg"><div id="dlgBody"></div></dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -157,12 +177,12 @@ dlg.addEventListener('close', () => { mode = ''; });
 
 /* ---------- публичные данные ---------- */
 function drawPublic() {
-  const card = (p) => `<div class="pc"><div><b>${esc(p.name)}</b>${p.note ? `<small>${esc(p.note)}</small>` : ''}</div><span>${esc(p.value)}</span></div>`;
+  const card = (p) => `<div class="pc"><small>${esc(p.name)}${p.note ? ' (' + esc(p.note) + ')' : ''}</small><b>${esc(p.value)}</b></div>`;
   $('#diesel').innerHTML = prices.filter((p) => p.group_name === 'diesel').map(card).join('');
   $('#other').innerHTML = prices.filter((p) => p.group_name === 'other').map(card).join('');
   $('#upd').textContent = prices.length ? 'Актуально на ' + fmt(Math.max(...prices.map((p) => +new Date(p.updated_at)))) : '';
   const nc = news.map((n) => `<article class="nc" data-id="${n.id}">${n.image_url ? `<img src="${esc(n.image_url)}" alt="">` : ''}<div><time>${fmt(n.published_at)}</time><h3>${esc(n.title_ru)}</h3></div></article>`).join('');
-  $('#newsList').innerHTML = nc; $('#newsAll').innerHTML = nc;
+  $('#newsList').innerHTML = nc;
 }
 document.addEventListener('click', (e) => {
   const a = e.target.closest('.nc'); if (!a) return;
@@ -198,18 +218,15 @@ async function setSession(s) {
   if (s && session && s.user.id === session.user.id && profile) { session = s; return; }
   session = s; profile = null;
   if (s) { const { data } = await sb.from('profiles').select('*').eq('id', s.user.id).single(); profile = data; }
-  $('#acc').textContent = s ? 'Кабинет' : 'Войти';
-  if (s && mode === 'login') { dlg.close(); go('profile'); }
+  $('#navLogin').hidden = !!s; $('#navProfile').hidden = !s; $('#navOut').hidden = !s;
+  $('#editLink').hidden = !(profile && ['admin', 'super_admin'].includes(profile.role));
+  if (s && page === 'login') go('profile');
   if (!s && page === 'profile') go('home');
 }
 sb.auth.getSession().then(({ data }) => setSession(data.session));
 sb.auth.onAuthStateChange((_e, s) => setSession(s));
-$('#acc').addEventListener('click', () => (session ? go('profile') : openLogin()));
+$('#navOut').addEventListener('click', async () => { await sb.auth.signOut(); go('home'); });
 
-function openLogin() {
-  mode = 'login';
-  show(`<h2>Вход для сотрудников</h2><form id="lf" style="margin-top:16px"><label>Почта</label><input name="e" type="email" required><label>Пароль</label><input name="p" type="password" required><button class="btn">Войти</button> <span id="lmsg" style="color:#DC2626"></span></form>`);
-}
 async function loadStaff() { const { data } = await sb.from('profiles').select('*').order('created_at'); staff = data || []; }
 async function openPanel() { if (profile?.role === 'super_admin') await loadStaff(); drawPanel(); }
 
@@ -266,13 +283,14 @@ document.addEventListener('submit', async (e) => {
   }
 });
 /* ---------- экраны (как в прежней версии: каждая кнопка — отдельный экран) ---------- */
-const PAGES = ['home', 'about', 'news', 'request', 'contacts', 'profile'];
+const PAGES = ['home', 'about', 'contacts', 'login', 'profile'];
 function go(n, push = true) {
   if (!PAGES.includes(n)) n = 'home';
-  if (n === 'profile' && !session) { openLogin(); n = 'home'; }
+  if (n === 'profile' && !session) n = 'login';
+  if (n === 'login' && session) n = 'profile';
   page = n;
   document.querySelectorAll('.page').forEach((el) => { el.hidden = el.id !== 'p-' + n; });
-  document.querySelectorAll('nav [data-nav]').forEach((b) => b.classList.toggle('on', b.dataset.nav === n));
+  document.querySelectorAll('#headerNav [data-nav]').forEach((b) => b.classList.toggle('on', b.dataset.nav === n));
   if (push && location.hash !== '#' + n) history.pushState(null, '', '#' + n);
   window.scrollTo(0, 0);
   if (n === 'profile') openPanel();
