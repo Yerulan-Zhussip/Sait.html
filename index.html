@@ -16,8 +16,15 @@ header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdro
 header .wrap{display:flex;align-items:center;gap:28px;height:68px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
 .logo i{width:34px;height:34px;border-radius:10px;background:var(--orange);display:grid;place-items:center}
-nav{display:flex;gap:24px;flex:1;font-size:14px;font-weight:500;color:var(--mute)}
-nav a:hover{color:var(--orange)}
+nav{display:flex;gap:6px;flex:1}
+nav button{background:none;border:0;cursor:pointer;font:500 14px Inter,sans-serif;color:var(--mute);padding:8px 14px;border-radius:999px;white-space:nowrap}
+nav button:hover{color:var(--orange)}
+nav button.on{background:var(--soft);color:var(--orange);font-weight:600}
+.page{animation:in .3s ease-out}
+.page[hidden]{display:none}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#newsAll{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+#newsAll .nc{flex:none}
 .btn{display:inline-block;border:0;cursor:pointer;font:600 15px Inter,sans-serif;color:#fff;background:linear-gradient(135deg,var(--amber),var(--orange));padding:13px 24px;border-radius:12px}
 .btn:hover{filter:brightness(.95)}
 .btn.ghost{background:var(--soft);color:var(--orange);border:1px solid var(--amber)}
@@ -63,22 +70,23 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
 .mute{color:var(--mute);font-size:14px}
 .chips{display:flex;gap:6px}
 .ok{color:#15803D;font-weight:600}
-@media(max-width:760px){nav{display:none}header .wrap{justify-content:space-between}.facts{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}section{padding:52px 0}.hero{padding:56px 0 44px}}
+@media(max-width:760px){header .wrap{flex-wrap:wrap;height:auto;padding:12px 20px;gap:8px}.logo{flex:1}nav{order:3;width:100%;overflow-x:auto}.facts{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}section{padding:52px 0}.hero{padding:56px 0 44px}}
 </style>
 </head>
 <body>
 <header><div class="wrap">
-  <a class="logo" href="#top"><i><svg width="18" height="18" viewBox="0 0 100 100"><polygon fill="#fff" points="56,8 22,58 46,58 40,94 78,40 54,40"/></svg></i>Mercury Energy</a>
-  <nav><a href="#prices">Цены</a><a href="#news">Новости</a><a href="#about">О компании</a><a href="#request">Заявка</a><a href="#contacts">Контакты</a></nav>
+  <a class="logo" href="#" data-nav="home"><i><svg width="18" height="18" viewBox="0 0 100 100"><polygon fill="#fff" points="56,8 22,58 46,58 40,94 78,40 54,40"/></svg></i>Mercury Energy</a>
+  <nav><button data-nav="home">Главная</button><button data-nav="about">О компании</button><button data-nav="news">Новости</button><button data-nav="request">Заявка</button><button data-nav="contacts">Контакты</button></nav>
   <button class="btn ghost sm" id="acc">Войти</button>
 </div></header>
 
-<main id="top">
+<main>
+<div class="page" id="p-home">
 <div class="hero"><div class="wrap">
   <div class="tag">Авиационное топливо · Казахстан</div>
   <h1>От бескрайних степей к вечному небу</h1>
   <p class="lead">Mercury Energy — один из ведущих поставщиков авиационного топлива в Казахстане. Собственная нефтебаза, лаборатория и круглосуточная диспетчерская.</p>
-  <div class="cta"><a class="btn" href="#request">Оставить заявку</a><a class="btn ghost" href="#prices">Актуальные цены</a></div>
+  <div class="cta"><button class="btn" data-nav="request">Оставить заявку</button><button class="btn ghost" data-nav="about">О компании</button></div>
   <div class="facts">
     <div class="fact"><b>19 000 м³</b><span>объём хранения</span></div>
     <div class="fact"><b>13</b><span>резервуаров</span></div>
@@ -86,26 +94,31 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
     <div class="fact"><b>JIG 2</b><span>стандарт качества</span></div>
   </div>
 </div></div>
-
-<section id="prices"><div class="wrap">
+<section><div class="wrap">
   <div class="tag">Цены</div><h2>Топливные цены</h2><p class="sub" id="upd"></p>
   <h4>Дизельное топливо летнее</h4><div class="grid" id="diesel"></div>
   <h4>Авиатопливо и бензин</h4><div class="grid" id="other"></div>
 </div></section>
-
-<section id="news" class="alt"><div class="wrap">
-  <div class="tag">Новости</div><h2>Новости компании</h2><p class="sub">Листайте вправо, чтобы увидеть больше.</p>
+<section class="alt"><div class="wrap">
+  <div class="tag">Новости</div><h2>Последние новости</h2><p class="sub">Листайте вправо, чтобы увидеть больше.</p>
   <div class="slider" id="newsList"></div>
+  <div style="margin-top:18px"><button class="btn ghost" data-nav="news">Все новости</button></div>
 </div></section>
+</div>
 
-<section id="about"><div class="wrap two">
+<div class="page" id="p-about" hidden><section><div class="wrap two">
   <div><div class="tag">О компании</div><h2>Надёжные поставки и контроль качества</h2>
     <p>Мы обеспечиваем бесперебойные поставки качественного авиатоплива в крупнейшие аэропорты страны. Круглосуточная диспетчерская следит за процессами в реальном времени, собственная лаборатория проверяет каждую партию, а автоматическая система пожаротушения Siemens обеспечивает безопасность.</p></div>
   <div><h2 style="margin-top:34px">Нефтебаза в Алматы</h2>
     <p>Склад класса «А» принимает, хранит и выдаёт светлые нефтепродукты. Резервуарный парк: 13 РВС, ж/д эстакада на 6 постов. От вокзала «Алматы-1» — 3 км, от аэропорта — 6 км.</p></div>
-</div></section>
+</div></section></div>
 
-<section id="request" class="alt"><div class="wrap two">
+<div class="page" id="p-news" hidden><section><div class="wrap">
+  <div class="tag">Новости</div><h2>Новости компании</h2><p class="sub">Нажмите на новость, чтобы прочитать полностью.</p>
+  <div id="newsAll"></div>
+</div></section></div>
+
+<div class="page" id="p-request" hidden><section><div class="wrap two">
   <div><div class="tag">Заявка</div><h2>Заявка на поставку</h2><p class="sub">Оставьте данные, и мы свяжемся с вами.</p></div>
   <form id="rf">
     <label>Имя</label><input name="name" required>
@@ -115,13 +128,15 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
     <label>Комментарий</label><textarea name="note" rows="3"></textarea>
     <button class="btn">Отправить заявку</button> <span id="rmsg" class="ok"></span>
   </form>
-</div></section>
+</div></section></div>
 
-<section id="contacts"><div class="wrap">
+<div class="page" id="p-contacts" hidden><section><div class="wrap">
   <div class="tag">Контакты</div><h2>Свяжитесь с нами</h2>
   <p class="sub">г. Алматы, Турксибский район, ул. Свободная 136/2</p>
   <div class="cta"><a class="btn" href="tel:+77273132596">+7 (727) 313 25 96</a><a class="btn ghost" href="mailto:info@mercuryenergy.kz">info@mercuryenergy.kz</a><a class="btn ghost" href="https://mercuryenergy.kz/ru/" target="_blank" rel="noopener">Сайт компании</a></div>
-</div></section>
+</div></section></div>
+
+<div class="page" id="p-profile" hidden><section><div class="wrap" style="max-width:760px"><div id="profileBody"></div></div></section></div>
 </main>
 <footer><div class="wrap">© 2026 Mercury Energy. Все права защищены.</div></footer>
 
@@ -134,7 +149,7 @@ const $ = (s) => document.querySelector(s);
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmt = (d) => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 const ROLE = { employee: 'Сотрудник', admin: 'Администратор', super_admin: 'Супер-админ' };
-let prices = [], news = [], staff = [], session = null, profile = null, mode = '';
+let prices = [], news = [], staff = [], session = null, profile = null, mode = '', page = 'home';
 const dlg = $('#dlg'), body = $('#dlgBody');
 const show = (html) => { body.innerHTML = html; if (!dlg.open) dlg.showModal(); };
 dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
@@ -146,9 +161,10 @@ function drawPublic() {
   $('#diesel').innerHTML = prices.filter((p) => p.group_name === 'diesel').map(card).join('');
   $('#other').innerHTML = prices.filter((p) => p.group_name === 'other').map(card).join('');
   $('#upd').textContent = prices.length ? 'Актуально на ' + fmt(Math.max(...prices.map((p) => +new Date(p.updated_at)))) : '';
-  $('#newsList').innerHTML = news.map((n) => `<article class="nc" data-id="${n.id}">${n.image_url ? `<img src="${esc(n.image_url)}" alt="">` : ''}<div><time>${fmt(n.published_at)}</time><h3>${esc(n.title_ru)}</h3></div></article>`).join('');
+  const nc = news.map((n) => `<article class="nc" data-id="${n.id}">${n.image_url ? `<img src="${esc(n.image_url)}" alt="">` : ''}<div><time>${fmt(n.published_at)}</time><h3>${esc(n.title_ru)}</h3></div></article>`).join('');
+  $('#newsList').innerHTML = nc; $('#newsAll').innerHTML = nc;
 }
-$('#newsList').addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
   const a = e.target.closest('.nc'); if (!a) return;
   const n = news.find((x) => x.id == a.dataset.id); mode = 'news';
   show(`${n.image_url ? `<img src="${esc(n.image_url)}" style="width:100%;height:200px;object-fit:cover;border-radius:14px">` : ''}<p class="mute" style="margin-top:14px">${fmt(n.published_at)}</p><h3 style="margin:6px 0 10px">${esc(n.title_ru)}</h3><p>${esc(n.body_ru)}</p>`);
@@ -161,7 +177,7 @@ async function load() {
   ]);
   prices = p.data || []; news = n.data || [];
   drawPublic();
-  if (mode === 'panel' && !body.contains(document.activeElement)) drawPanel();
+  if (page === 'profile' && session && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) drawPanel();
 }
 sb.channel('live')
   .on('postgres_changes', { event: '*', schema: 'public', table: 'prices' }, load)
@@ -183,18 +199,19 @@ async function setSession(s) {
   session = s; profile = null;
   if (s) { const { data } = await sb.from('profiles').select('*').eq('id', s.user.id).single(); profile = data; }
   $('#acc').textContent = s ? 'Кабинет' : 'Войти';
-  if (mode === 'login' || mode === 'panel') s ? openPanel() : dlg.close();
+  if (s && mode === 'login') { dlg.close(); go('profile'); }
+  if (!s && page === 'profile') go('home');
 }
 sb.auth.getSession().then(({ data }) => setSession(data.session));
 sb.auth.onAuthStateChange((_e, s) => setSession(s));
-$('#acc').addEventListener('click', () => (session ? openPanel() : openLogin()));
+$('#acc').addEventListener('click', () => (session ? go('profile') : openLogin()));
 
 function openLogin() {
   mode = 'login';
   show(`<h2>Вход для сотрудников</h2><form id="lf" style="margin-top:16px"><label>Почта</label><input name="e" type="email" required><label>Пароль</label><input name="p" type="password" required><button class="btn">Войти</button> <span id="lmsg" style="color:#DC2626"></span></form>`);
 }
 async function loadStaff() { const { data } = await sb.from('profiles').select('*').order('created_at'); staff = data || []; }
-async function openPanel() { mode = 'panel'; if (profile?.role === 'super_admin') await loadStaff(); drawPanel(); }
+async function openPanel() { if (profile?.role === 'super_admin') await loadStaff(); drawPanel(); }
 
 function drawPanel() {
   const isA = profile && ['admin', 'super_admin'].includes(profile.role), isS = profile?.role === 'super_admin';
@@ -207,7 +224,7 @@ function drawPanel() {
   if (isS) {
     h += '<h3>Сотрудники</h3>' + staff.map((u) => `<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(u.full_name || u.email || u.id.slice(0, 8))}</b><div class="mute">${esc(u.email || '')}</div><div class="chips" style="margin-top:6px">${Object.keys(ROLE).map((r) => `<button class="btn sm ${u.role === r ? '' : 'ghost'}" data-r="${u.id}|${r}" ${u.id === session.user.id ? 'disabled style="opacity:.6"' : ''}>${ROLE[r]}</button>`).join('')}</div></div>`).join('');
   }
-  show(h);
+  $('#profileBody').innerHTML = h;
 }
 
 const done = async (error, action, details) => {
@@ -215,11 +232,11 @@ const done = async (error, action, details) => {
   sb.from('logs').insert({ user_id: session.user.id, action, details });
   await load();
 };
-body.addEventListener('click', async (e) => {
+document.addEventListener('click', async (e) => {
   const b = e.target.closest('button'); if (!b) return;
   if (b.id === 'out') { await sb.auth.signOut(); dlg.close(); }
   if (b.dataset.sp) {
-    const id = b.dataset.sp, p = prices.find((x) => x.id == id), v = body.querySelector(`input[data-p="${id}"]`).value;
+    const id = b.dataset.sp, p = prices.find((x) => x.id == id), v = document.querySelector(`input[data-p="${id}"]`).value;
     const { error } = await sb.from('prices').update({ value: v, updated_at: new Date().toISOString() }).eq('id', id);
     done(error, 'price', `${p.name}: ${p.value} → ${v}`);
   }
@@ -235,7 +252,7 @@ body.addEventListener('click', async (e) => {
     else alert('Ошибка: ' + error.message);
   }
 });
-body.addEventListener('submit', async (e) => {
+document.addEventListener('submit', async (e) => {
   e.preventDefault(); const f = new FormData(e.target);
   if (e.target.id === 'lf') {
     const { error } = await sb.auth.signInWithPassword({ email: f.get('e').trim(), password: f.get('p') });
@@ -248,6 +265,25 @@ body.addEventListener('submit', async (e) => {
     done(error, 'news+', f.get('t'));
   }
 });
+/* ---------- экраны (как в прежней версии: каждая кнопка — отдельный экран) ---------- */
+const PAGES = ['home', 'about', 'news', 'request', 'contacts', 'profile'];
+function go(n, push = true) {
+  if (!PAGES.includes(n)) n = 'home';
+  if (n === 'profile' && !session) { openLogin(); n = 'home'; }
+  page = n;
+  document.querySelectorAll('.page').forEach((el) => { el.hidden = el.id !== 'p-' + n; });
+  document.querySelectorAll('nav [data-nav]').forEach((b) => b.classList.toggle('on', b.dataset.nav === n));
+  if (push && location.hash !== '#' + n) history.pushState(null, '', '#' + n);
+  window.scrollTo(0, 0);
+  if (n === 'profile') openPanel();
+}
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-nav]');
+  if (a) { e.preventDefault(); go(a.dataset.nav); }
+});
+addEventListener('popstate', () => go(location.hash.slice(1), false));
+const h0 = location.hash.slice(1);
+go(PAGES.includes(h0) && h0 !== 'profile' ? h0 : 'home', false);
 load();
 </script>
 </body>
