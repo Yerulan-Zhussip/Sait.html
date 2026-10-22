@@ -78,6 +78,26 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .ok{color:#15803D;font-weight:600}
 @media(max-width:639px){.lbl{display:none}.two{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.hero{height:220px}.panel{padding:20px}}
+.av{border-radius:50%;object-fit:cover;background:var(--soft);color:var(--orange);display:inline-grid;place-items:center;font-weight:800;border:2px solid #FDE7B8;flex:none}
+.lead{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+.lead em{display:block;color:var(--orange);font-style:normal;font-size:13px;font-weight:600}
+.lead p{margin:6px 0 0;font-size:14px}
+.map{width:100%;height:300px;border:0;border-radius:18px;margin-top:14px}
+.info{list-style:none;padding:0;margin:14px 0 0;font-size:14px;color:var(--mute)}
+.info li{padding:5px 0;border-bottom:1px solid var(--line)}.info b{color:var(--ink)}
+.me{display:flex;gap:20px;align-items:center;margin-bottom:20px}
+.two2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.emp{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ei{flex:1}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#CBD5E1;margin-right:6px}.dot.on{background:#22C55E}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.tank{border:1px solid var(--line);border-radius:18px;padding:16px;text-align:center;background:#fff}
+.tank small{display:block;color:var(--mute);font-size:12px}
+.tube{position:relative;height:130px;width:64px;margin:0 auto 10px;border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#F8FAFC}
+.fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(var(--amber),var(--orange));transition:height .5s}
+.fill.low{background:linear-gradient(#FCA5A5,#DC2626)}
+.tube span{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:13px}
+@media(max-width:639px){.lead{flex-direction:column}.me{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
@@ -87,7 +107,8 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
   <div id="headerNav">
     <button class="pill" data-nav="home"><i class="fas fa-home"></i>Главная</button>
     <button class="pill" data-nav="about"><i class="fas fa-building"></i><span class="lbl">О компании</span></button>
-    <button class="pill" data-nav="contacts"><i class="fas fa-phone"></i><span class="lbl">Контакты</span></button>
+    <button class="pill" data-nav="tanks" id="navTanks" hidden><i class="fas fa-oil-can"></i><span class="lbl">АЗС / Нефтебаза</span></button>
+    <button class="pill" data-nav="admin" id="navAdmin" hidden><i class="fas fa-user-shield"></i><span class="lbl">Админ</span></button>
     <button class="pill" data-nav="profile" id="navProfile" hidden><i class="fas fa-user-circle"></i><span class="lbl">Мой кабинет</span></button>
     <a class="pill" href="https://mercuryenergy.kz/ru/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i><span class="lbl">Сайт</span></a>
     <button class="pill" data-nav="login" id="navLogin"><i class="fas fa-user"></i>Вход</button>
@@ -106,7 +127,7 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
     <div class="ph">
       <h2><i class="fas fa-tags"></i> Топливные цены</h2>
       <p id="upd"></p>
-      <button class="pill" id="editLink" data-nav="profile" hidden style="margin-top:8px"><i class="fas fa-edit"></i>Редактировать</button>
+      <button class="pill" id="editLink" data-nav="admin" hidden style="margin-top:8px"><i class="fas fa-edit"></i>Редактировать</button>
     </div>
     <div class="sec"><h3><i class="fas fa-oil-can"></i> Дизельное топливо</h3><div class="grid" id="diesel"></div></div>
     <div class="sec"><h3><i class="fas fa-gas-pump"></i> Авиатопливо и бензин</h3><div class="grid" id="other"></div></div>
@@ -118,26 +139,33 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
   </div>
 </div>
 
-<div class="page" id="p-about" hidden><div class="panel" style="margin-top:0">
+<div class="page" id="p-about" hidden>
+<div class="panel" style="margin-top:0">
   <h2 class="t">О компании</h2>
-  <div class="two">
-    <p>Мы обеспечиваем бесперебойные поставки качественного авиатоплива в крупнейшие аэропорты страны. Круглосуточная диспетчерская следит за процессами в реальном времени, собственная лаборатория проверяет каждую партию, а автоматическая система пожаротушения Siemens обеспечивает безопасность.</p>
-    <p>Нефтебаза в Алматы — склад класса «А» для приёма, хранения и выдачи светлых нефтепродуктов. Резервуарный парк: 13 РВС, ж/д эстакада на 6 постов. От вокзала «Алматы-1» — 3 км, от аэропорта — 6 км.</p>
-  </div>
+  <p>Mercury Energy — один из ведущих поставщиков авиационного топлива в Казахстане. Мы обеспечиваем бесперебойные поставки высококачественного топлива в крупнейшие аэропорты страны, гарантируя соответствие международным стандартам и строгий контроль качества.</p>
+  <p>Нефтебаза располагает современной инфраструктурой: ключевые процессы автоматизированы и управляются централизованно. Круглосуточная диспетчерская ведёт мониторинг в реальном времени, а собственная лаборатория регулярно анализирует нефтепродукты. Промышленную безопасность обеспечивает автоматическая система пожаротушения Siemens (водяное и пенное) и собственное пожарное депо с двумя резервуарами по 1200 м³. Газоуравнительная система сокращает выбросы паров, а очистные сооружения позволяют повторно использовать воду. Резервуарный парк и технологические узлы соответствуют стандартам Joint Inspection Group (JIG 2), признанным IATA.</p>
   <div class="facts">
     <div class="fact"><b>19 000 м³</b><span>объём хранения</span></div>
     <div class="fact"><b>13</b><span>резервуаров</span></div>
     <div class="fact"><b>2018</b><span>год ввода</span></div>
     <div class="fact"><b>JIG 2</b><span>стандарт качества</span></div>
   </div>
-</div></div>
-
-<div class="page" id="p-contacts" hidden><div class="panel" style="margin-top:0">
+  <ul class="info">
+    <li><b>Расположение:</b> г. Алматы, Турксибский р-н, ул. Свободная 136/2. От «Алматы-1» — 3 км, от аэропорта — 6 км</li>
+    <li><b>Площадь участка:</b> 10,0028 га · <b>Класс склада:</b> «А»</li>
+    <li><b>Резервуарный парк:</b> 13 РВС — 1000 м³ (9 шт.), 2000 м³ (2 шт.), 3000 м³ (2 шт.)</li>
+    <li><b>Ж/д эстакада:</b> 6 постов; три ж/д ветки 957 м, тупик вмещает 65 вагонов</li>
+    <li><b>Сооружения:</b> административное здание, операторская, лаборатория, пожарное депо, АЗС</li>
+  </ul>
+</div>
+<div class="panel"><h2 class="t">Менеджмент</h2><div id="leaders"></div></div>
+<div class="panel">
   <h2 class="t">Контакты</h2>
   <div class="two">
     <div>
       <p>г. Алматы, Турксибский район, ул. Свободная 136/2</p>
-      <div class="cta"><a class="btn" href="tel:+77273132596"><i class="fas fa-phone"></i> +7 (727) 313 25 96</a><a class="btn ghost" href="mailto:info@mercuryenergy.kz"><i class="fas fa-envelope"></i> info@mercuryenergy.kz</a></div>
+      <div class="cta"><a class="btn" href="tel:+77273132596"><i class="fas fa-phone"></i> +7 (727) 313 25 96</a><a class="btn ghost" href="mailto:info@mercuryenergy.kz"><i class="fas fa-envelope"></i> info@mercuryenergy.kz</a><a class="btn ghost" href="https://yandex.kz/maps/ru/org/mercury_energy/98395703974/" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i> Открыть карту</a></div>
+      <iframe class="map" loading="lazy" title="Нефтебаза Mercury Energy на карте" src="https://yandex.kz/map-widget/v1/?oid=98395703974&z=16"></iframe>
     </div>
     <form id="rf">
       <h3 style="margin-bottom:12px">Заявка на поставку</h3>
@@ -149,7 +177,16 @@ dialog::backdrop{background:rgba(20,33,61,.55)}
       <button class="btn">Отправить заявку</button> <span id="rmsg" class="ok"></span>
     </form>
   </div>
+</div>
+</div>
+
+<div class="page" id="p-tanks" hidden><div class="panel" style="margin-top:0">
+  <div class="ph"><h2><i class="fas fa-oil-can"></i> АЗС / Нефтебаза</h2><p>Уровень топлива в резервуарах</p></div>
+  <div class="chips" id="cityTabs" style="justify-content:center;margin-bottom:18px"></div>
+  <div class="tgrid" id="tankGrid"></div>
 </div></div>
+
+<div class="page" id="p-admin" hidden><div class="panel" style="margin-top:0;max-width:860px;margin-inline:auto"><div id="adminBody"></div></div></div>
 
 <div class="page" id="p-login" hidden><div class="panel" style="margin:0 auto;max-width:440px">
   <h2 class="t">Вход для сотрудников</h2>
@@ -169,11 +206,24 @@ const $ = (s) => document.querySelector(s);
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmt = (d) => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 const ROLE = { employee: 'Сотрудник', admin: 'Администратор', super_admin: 'Супер-админ' };
-let prices = [], news = [], staff = [], session = null, profile = null, mode = '', page = 'home';
+const ACT = { price: 'изменил(а) цену', 'news+': 'добавил(а) новость', 'news-': 'удалил(а) новость', role: 'изменил(а) роль', tank: 'обновил(а) резервуар', access: 'изменил(а) доступ', pos: 'изменил(а) должность' };
+const CITY = { Astana: 'Астана', Almaty: 'Алматы', Dostyk: 'Достык' };
+let prices = [], news = [], leaders = [], tanks = [], staff = [], logs = [], session = null, profile = null, page = 'home', city = 'Almaty';
 const dlg = $('#dlg'), body = $('#dlgBody');
 const show = (html) => { body.innerHTML = html; if (!dlg.open) dlg.showModal(); };
 dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
-dlg.addEventListener('close', () => { mode = ''; });
+const isAdmin = () => !!profile && ['admin', 'super_admin'].includes(profile.role);
+const isSuper = () => profile?.role === 'super_admin';
+const canTanks = () => isAdmin() || !!profile?.can_view_tanks;
+const canEditTanks = () => isAdmin() || (!!profile?.can_view_tanks && !!profile?.can_edit_tanks);
+const nm = (u) => u.name || [u.first_name, u.last_name].filter(Boolean).join(' ') || u.full_name || u.email || '—';
+const av = (u, z = 44) => {
+  const src = u.avatar_url || u.photo_url, st = `width:${z}px;height:${z}px`;
+  return src ? `<img class="av" style="${st}" src="${esc(src)}" alt="">`
+    : `<span class="av" style="${st};font-size:${Math.round(z / 2.6)}px">${esc(nm(u).split(' ').map((w) => w[0]).slice(0, 2).join('').toUpperCase())}</span>`;
+};
+const logIt = (action, details) => sb.from('logs').insert({ user_id: session.user.id, action, details });
+const when = (d) => (d ? new Date(d).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '');
 
 /* ---------- публичные данные ---------- */
 function drawPublic() {
@@ -181,30 +231,39 @@ function drawPublic() {
   $('#diesel').innerHTML = prices.filter((p) => p.group_name === 'diesel').map(card).join('');
   $('#other').innerHTML = prices.filter((p) => p.group_name === 'other').map(card).join('');
   $('#upd').textContent = prices.length ? 'Актуально на ' + fmt(Math.max(...prices.map((p) => +new Date(p.updated_at)))) : '';
-  const nc = news.map((n) => `<article class="nc" data-id="${n.id}">${n.image_url ? `<img src="${esc(n.image_url)}" alt="">` : ''}<div><time>${fmt(n.published_at)}</time><h3>${esc(n.title_ru)}</h3></div></article>`).join('');
-  $('#newsList').innerHTML = nc;
+  $('#newsList').innerHTML = news.map((n) => `<article class="nc" data-id="${n.id}">${n.image_url ? `<img src="${esc(n.image_url)}" alt="">` : ''}<div><time>${fmt(n.published_at)}</time><h3>${esc(n.title_ru)}</h3></div></article>`).join('');
+  $('#leaders').innerHTML = leaders.map((l) => `<div class="lead">${av(l, 88)}<div><b>${esc(l.name)}</b><em>${esc(l.position)}</em><p>${esc(l.bio)}</p></div></div>`).join('');
 }
-document.addEventListener('click', (e) => {
-  const a = e.target.closest('.nc'); if (!a) return;
-  const n = news.find((x) => x.id == a.dataset.id); mode = 'news';
-  show(`${n.image_url ? `<img src="${esc(n.image_url)}" style="width:100%;height:200px;object-fit:cover;border-radius:14px">` : ''}<p class="mute" style="margin-top:14px">${fmt(n.published_at)}</p><h3 style="margin:6px 0 10px">${esc(n.title_ru)}</h3><p>${esc(n.body_ru)}</p>`);
-});
-
 async function load() {
-  const [p, n] = await Promise.all([
+  const [p, n, l] = await Promise.all([
     sb.from('prices').select('*').order('sort'),
     sb.from('news').select('*').order('published_at', { ascending: false }),
+    sb.from('leaders').select('*').order('sort'),
   ]);
-  prices = p.data || []; news = n.data || [];
+  prices = p.data || []; news = n.data || []; leaders = l.data || [];
   drawPublic();
-  if (page === 'profile' && session && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) drawPanel();
+  if (page === 'admin' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) drawAdmin();
 }
+async function loadTanks() {
+  if (!canTanks()) { tanks = []; return; }
+  const { data } = await sb.from('tanks').select('*').order('sort');
+  tanks = data || [];
+  if (!tanks.some((t) => t.city === city) && tanks[0]) city = tanks[0].city;
+  if (page === 'tanks' && !/INPUT/.test(document.activeElement.tagName)) drawTanks();
+}
+const loadStaff = async () => { const { data } = await sb.from('profiles').select('*').order('created_at'); staff = data || []; };
+const loadLogs = async () => { const { data } = await sb.from('logs').select('*').order('created_at', { ascending: false }).limit(15); logs = data || []; };
 sb.channel('live')
   .on('postgres_changes', { event: '*', schema: 'public', table: 'prices' }, load)
   .on('postgres_changes', { event: '*', schema: 'public', table: 'news' }, load)
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'tanks' }, loadTanks)
   .subscribe();
 
-/* ---------- заявка ---------- */
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('.nc'); if (!a) return;
+  const n = news.find((x) => x.id == a.dataset.id);
+  show(`${n.image_url ? `<img src="${esc(n.image_url)}" style="width:100%;height:200px;object-fit:cover;border-radius:14px">` : ''}<p class="mute" style="margin-top:14px">${fmt(n.published_at)}</p><h3 style="margin:6px 0 10px">${esc(n.title_ru)}</h3><p>${esc(n.body_ru)}</p>`);
+});
 $('#rf').addEventListener('submit', async (e) => {
   e.preventDefault();
   const f = new FormData(e.target);
@@ -213,87 +272,163 @@ $('#rf').addEventListener('submit', async (e) => {
   if (!error) e.target.reset();
 });
 
-/* ---------- вход и кабинет ---------- */
-async function setSession(s) {
-  if (s && session && s.user.id === session.user.id && profile) { session = s; return; }
-  session = s; profile = null;
-  if (s) { const { data } = await sb.from('profiles').select('*').eq('id', s.user.id).single(); profile = data; }
-  $('#navLogin').hidden = !!s; $('#navProfile').hidden = !s; $('#navOut').hidden = !s;
-  $('#editLink').hidden = !(profile && ['admin', 'super_admin'].includes(profile.role));
-  if (s && page === 'login') go('profile');
-  if (!s && page === 'profile') go('home');
-}
-sb.auth.getSession().then(({ data }) => setSession(data.session));
-sb.auth.onAuthStateChange((_e, s) => setSession(s));
-$('#navOut').addEventListener('click', async () => { await sb.auth.signOut(); go('home'); });
-
-async function loadStaff() { const { data } = await sb.from('profiles').select('*').order('created_at'); staff = data || []; }
-async function openPanel() { if (profile?.role === 'super_admin') await loadStaff(); drawPanel(); }
-
-function drawPanel() {
-  const isA = profile && ['admin', 'super_admin'].includes(profile.role), isS = profile?.role === 'super_admin';
-  let h = `<h2>${esc(profile?.full_name || session.user.email)}</h2><p class="mute" style="margin-bottom:14px">${esc(session.user.email)} · ${ROLE[profile?.role] || ''}</p><button class="btn ghost sm" id="out">Выйти</button>`;
-  if (isA) {
-    h += '<h3>Цены</h3>' + prices.map((p) => `<div class="row"><span>${esc(p.name)}</span><input data-p="${p.id}" value="${esc(p.value)}"><button class="btn sm" data-sp="${p.id}">Сохранить</button></div>`).join('');
-    h += `<h3>Новая новость</h3><form id="nf"><input name="t" placeholder="Заголовок" required><textarea name="b" rows="3" placeholder="Текст"></textarea><input name="i" placeholder="Ссылка на фото (https://…)"><button class="btn">Опубликовать</button></form>`;
-    h += '<h3>Опубликованные новости</h3>' + news.map((n) => `<div class="row"><span>${esc(n.title_ru)}</span><button class="btn ghost sm" data-dn="${n.id}">Удалить</button></div>`).join('');
-  }
-  if (isS) {
-    h += '<h3>Сотрудники</h3>' + staff.map((u) => `<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(u.full_name || u.email || u.id.slice(0, 8))}</b><div class="mute">${esc(u.email || '')}</div><div class="chips" style="margin-top:6px">${Object.keys(ROLE).map((r) => `<button class="btn sm ${u.role === r ? '' : 'ghost'}" data-r="${u.id}|${r}" ${u.id === session.user.id ? 'disabled style="opacity:.6"' : ''}>${ROLE[r]}</button>`).join('')}</div></div>`).join('');
-  }
-  $('#profileBody').innerHTML = h;
+/* ---------- резервуары ---------- */
+function drawTanks() {
+  const cities = Object.keys(CITY).filter((k) => tanks.some((t) => t.city === k));
+  $('#cityTabs').innerHTML = cities.map((k) => `<button class="pill ${k === city ? 'on' : ''}" data-city="${k}">${CITY[k]}</button>`).join('');
+  const nf = (v) => Number(v).toLocaleString('ru-RU');
+  $('#tankGrid').innerHTML = tanks.filter((t) => t.city === city).map((t) => {
+    const pct = Math.min(100, Math.round((t.value / t.max_value) * 100));
+    return `<div class="tank"><div class="tube"><div class="fill ${pct < 15 ? 'low' : ''}" style="height:${pct}%"></div><span>${pct}%</span></div><b>${esc(t.name)}</b><small>${esc(t.content)}</small><div class="mute">${nf(t.value)} / ${nf(t.max_value)} м³</div>${canEditTanks() ? `<div class="row" style="border:0;padding:8px 0 0"><input type="number" min="0" max="${t.max_value}" value="${t.value}" data-tv="${t.id}"><button class="btn sm" data-st="${t.id}">OK</button></div>` : ''}</div>`;
+  }).join('') || '<p class="mute" style="text-align:center">Нет доступных резервуаров</p>';
 }
 
+/* ---------- кабинет ---------- */
+const resize = (file) => new Promise((ok) => {
+  const i = new Image();
+  i.onload = () => { const c = document.createElement('canvas'); c.width = c.height = 256; const m = Math.min(i.width, i.height); c.getContext('2d').drawImage(i, (i.width - m) / 2, (i.height - m) / 2, m, m, 0, 0, 256, 256); c.toBlob(ok, 'image/jpeg', 0.85); };
+  i.src = URL.createObjectURL(file);
+});
+function drawProfile() {
+  const p = profile || {};
+  $('#profileBody').innerHTML = `<div class="me">${av(p, 96)}<div><h2>${esc(nm(p))}</h2><p class="mute">${esc(p.position || ROLE[p.role] || '')}</p><label class="btn ghost sm" style="cursor:pointer;display:inline-block;margin-top:6px">Сменить фото<input type="file" id="avf" accept="image/*" hidden></label></div></div>
+  <form id="pf"><div class="two2"><div><label>Фамилия</label><input name="l" value="${esc(p.last_name)}"></div><div><label>Имя</label><input name="f" value="${esc(p.first_name)}"></div></div>
+  <label>Номер телефона</label><input name="ph" type="tel" value="${esc(p.phone)}">
+  <label>Должность</label><input value="${esc(p.position)}" disabled>
+  <label>Почта</label><input value="${esc(session.user.email)}" disabled>
+  <button class="btn">Сохранить</button> <span id="pmsg" class="ok"></span></form>`;
+}
+
+/* ---------- админ ---------- */
+async function openAdmin() { await Promise.all([loadStaff(), loadLogs()]); drawAdmin(); }
+function drawAdmin() {
+  let h = '<h2 class="t">Управление</h2><h3>Цены</h3>';
+  h += prices.map((p) => `<div class="row"><span>${esc(p.name)}</span><input data-p="${p.id}" value="${esc(p.value)}"><button class="btn sm" data-sp="${p.id}">Сохранить</button></div>`).join('');
+  h += `<h3 style="margin-top:22px">Новая новость</h3><form id="nf"><input name="t" placeholder="Заголовок" required><textarea name="b" rows="3" placeholder="Текст"></textarea><input name="i" placeholder="Ссылка на фото (https://…)"><button class="btn">Опубликовать</button></form>`;
+  h += '<h3 style="margin-top:22px">Опубликованные новости</h3>' + news.map((n) => `<div class="row"><span>${esc(n.title_ru)}</span><button class="btn ghost sm" data-dn="${n.id}">Удалить</button></div>`).join('');
+  h += `<h3 style="margin-top:22px">Сотрудники на базе</h3>` + staff.map((u) => {
+    const on = u.last_seen && Date.now() - new Date(u.last_seen) < 180000;
+    const sup = isSuper() ? `<div class="chips" style="margin-top:8px">${Object.keys(ROLE).map((r) => `<button class="btn sm ${u.role === r ? '' : 'ghost'}" data-r="${u.id}|${r}" ${u.id === session.user.id ? 'disabled style="opacity:.6"' : ''}>${ROLE[r]}</button>`).join('')}</div>
+      <div class="chips" style="margin-top:8px;font-size:13px"><label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" style="width:auto;margin:0" data-pv="${u.id}" ${u.can_view_tanks ? 'checked' : ''}>Видит резервуары</label><label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" style="width:auto;margin:0" data-pe="${u.id}" ${u.can_edit_tanks ? 'checked' : ''}>Правит</label></div>
+      <div class="row" style="border:0;padding:8px 0 0"><input data-posi="${u.id}" placeholder="Должность" value="${esc(u.position)}" style="width:100%"><button class="btn sm" data-pos="${u.id}">OK</button></div>` : '';
+    return `<div class="emp">${av(u, 48)}<div class="ei"><b>${esc(nm(u))}</b> <span class="mute">· ${ROLE[u.role]}</span><div class="mute">${esc(u.position || 'должность не указана')} · ${esc(u.phone || 'телефон не указан')}</div><div class="mute"><i class="dot ${on ? 'on' : ''}"></i>${on ? 'Онлайн' : u.last_seen ? 'Был(а) в сети: ' + when(u.last_seen) : 'ещё не входил(а)'}</div>${sup}</div></div>`;
+  }).join('');
+  h += '<h3 style="margin-top:22px">Последние изменения</h3>' + (logs.map((l) => `<div class="row"><span><b>${esc(nm(staff.find((x) => x.id === l.user_id) || {}))}</b> ${ACT[l.action] || esc(l.action)}: ${esc(l.details)}</span><span class="mute" style="flex:none">${when(l.created_at)}</span></div>`).join('') || '<p class="mute">Пока нет записей</p>');
+  $('#adminBody').innerHTML = h;
+}
 const done = async (error, action, details) => {
   if (error) return alert('Ошибка: ' + error.message);
-  sb.from('logs').insert({ user_id: session.user.id, action, details });
-  await load();
+  logIt(action, details); await load(); await loadLogs(); if (page === 'admin') drawAdmin();
 };
 document.addEventListener('click', async (e) => {
   const b = e.target.closest('button'); if (!b) return;
-  if (b.id === 'out') { await sb.auth.signOut(); dlg.close(); }
-  if (b.dataset.sp) {
-    const id = b.dataset.sp, p = prices.find((x) => x.id == id), v = document.querySelector(`input[data-p="${id}"]`).value;
-    const { error } = await sb.from('prices').update({ value: v, updated_at: new Date().toISOString() }).eq('id', id);
+  const d = b.dataset;
+  if (d.city) { city = d.city; drawTanks(); }
+  if (d.st) {
+    const t = tanks.find((x) => x.id == d.st), v = +document.querySelector(`input[data-tv="${d.st}"]`).value;
+    const { error } = await sb.from('tanks').update({ value: v, updated_at: new Date().toISOString() }).eq('id', d.st);
+    if (error) return alert('Ошибка: ' + error.message);
+    logIt('tank', `${CITY[t.city]}, ${t.name}: ${t.value} → ${v} м³`); await loadTanks();
+  }
+  if (d.sp) {
+    const p = prices.find((x) => x.id == d.sp), v = document.querySelector(`input[data-p="${d.sp}"]`).value;
+    const { error } = await sb.from('prices').update({ value: v, updated_at: new Date().toISOString() }).eq('id', d.sp);
     done(error, 'price', `${p.name}: ${p.value} → ${v}`);
   }
-  if (b.dataset.dn) {
-    const n = news.find((x) => x.id == b.dataset.dn); if (!confirm('Удалить новость?')) return;
+  if (d.dn) {
+    const n = news.find((x) => x.id == d.dn); if (!confirm('Удалить новость?')) return;
     const { error } = await sb.from('news').delete().eq('id', n.id);
     done(error, 'news-', n.title_ru);
   }
-  if (b.dataset.r) {
-    const [id, role] = b.dataset.r.split('|'), u = staff.find((x) => x.id === id); if (id === session.user.id || u.role === role) return;
+  if (d.r) {
+    const [id, role] = d.r.split('|'), u = staff.find((x) => x.id === id); if (id === session.user.id || u.role === role) return;
     const { error } = await sb.from('profiles').update({ role }).eq('id', id);
-    if (!error) { sb.from('logs').insert({ user_id: session.user.id, action: 'role', details: `${u.email}: ${u.role} → ${role}` }); await loadStaff(); drawPanel(); }
-    else alert('Ошибка: ' + error.message);
+    if (error) return alert('Ошибка: ' + error.message);
+    logIt('role', `${nm(u)}: ${ROLE[u.role]} → ${ROLE[role]}`); await loadStaff(); drawAdmin();
+  }
+  if (d.pos) {
+    const u = staff.find((x) => x.id === d.pos), v = document.querySelector(`input[data-posi="${d.pos}"]`).value.trim();
+    const { error } = await sb.from('profiles').update({ position: v }).eq('id', d.pos);
+    if (error) return alert('Ошибка: ' + error.message);
+    logIt('pos', `${nm(u)}: ${v}`); await loadStaff(); drawAdmin();
   }
 });
+document.addEventListener('change', async (e) => {
+  const t = e.target;
+  if (t.id === 'avf' && t.files[0]) {
+    const path = `${session.user.id}/avatar.jpg`;
+    const up = await sb.storage.from('avatars').upload(path, await resize(t.files[0]), { upsert: true, contentType: 'image/jpeg' });
+    if (up.error) return alert('Ошибка: ' + up.error.message);
+    const url = sb.storage.from('avatars').getPublicUrl(path).data.publicUrl + '?t=' + Date.now();
+    await sb.from('profiles').update({ avatar_url: url }).eq('id', session.user.id);
+    profile.avatar_url = url; drawProfile();
+  }
+  const id = t.dataset.pv || t.dataset.pe; if (!id) return;
+  const u = staff.find((x) => x.id === id);
+  const upd = t.dataset.pv ? { can_view_tanks: t.checked, ...(t.checked ? {} : { can_edit_tanks: false }) } : { can_edit_tanks: t.checked, ...(t.checked ? { can_view_tanks: true } : {}) };
+  const { error } = await sb.from('profiles').update(upd).eq('id', id);
+  if (error) alert('Ошибка: ' + error.message);
+  else logIt('access', `${nm(u)}: резервуары — ${t.dataset.pv ? 'просмотр' : 'правка'} ${t.checked ? 'включён' : 'выключен'}`);
+  await loadStaff(); drawAdmin();
+});
 document.addEventListener('submit', async (e) => {
-  e.preventDefault(); const f = new FormData(e.target);
-  if (e.target.id === 'lf') {
+  e.preventDefault(); const f = new FormData(e.target), id = e.target.id;
+  if (id === 'lf') {
     const { error } = await sb.auth.signInWithPassword({ email: f.get('e').trim(), password: f.get('p') });
     if (error) $('#lmsg').textContent = 'Неверная почта или пароль';
   }
-  if (e.target.id === 'nf') {
+  if (id === 'nf') {
     const img = (f.get('i') || '').trim();
     if (img && !img.startsWith('https://')) return alert('Ссылка на фото должна начинаться с https://');
     const { error } = await sb.from('news').insert({ title_ru: f.get('t'), body_ru: f.get('b'), image_url: img || null });
     done(error, 'news+', f.get('t'));
   }
+  if (id === 'pf') {
+    const upd = { first_name: f.get('f').trim(), last_name: f.get('l').trim(), phone: f.get('ph').trim() };
+    upd.full_name = (upd.first_name + ' ' + upd.last_name).trim();
+    const { error } = await sb.from('profiles').update(upd).eq('id', session.user.id);
+    if (!error) Object.assign(profile, upd);
+    drawProfile(); $('#pmsg').textContent = error ? 'Ошибка: ' + error.message : 'Сохранено';
+  }
 });
-/* ---------- экраны (как в прежней версии: каждая кнопка — отдельный экран) ---------- */
-const PAGES = ['home', 'about', 'contacts', 'login', 'profile'];
+
+/* ---------- вход и экраны ---------- */
+const beat = () => { if (session) sb.from('profiles').update({ last_seen: new Date().toISOString() }).eq('id', session.user.id); };
+setInterval(beat, 60000);
+function applyNav() {
+  $('#navLogin').hidden = !!session; $('#navOut').hidden = !session; $('#navProfile').hidden = !session;
+  $('#navTanks').hidden = !canTanks(); $('#navAdmin').hidden = !isAdmin(); $('#editLink').hidden = !isAdmin();
+}
+async function setSession(s) {
+  if (s && session && s.user.id === session.user.id && profile) { session = s; return; }
+  session = s; profile = null; tanks = [];
+  if (s) {
+    const { data } = await sb.from('profiles').select('*').eq('id', s.user.id).single(); profile = data;
+    await loadTanks(); beat();
+  }
+  applyNav();
+  if (s && page === 'login') go('profile');
+  if (!s && ['profile', 'admin', 'tanks'].includes(page)) go('home');
+}
+sb.auth.getSession().then(({ data }) => setSession(data.session));
+sb.auth.onAuthStateChange((_e, s) => setSession(s));
+$('#navOut').addEventListener('click', async () => { await sb.auth.signOut(); go('home'); });
+
+const PAGES = ['home', 'about', 'tanks', 'admin', 'profile', 'login'];
 function go(n, push = true) {
   if (!PAGES.includes(n)) n = 'home';
-  if (n === 'profile' && !session) n = 'login';
+  if (['profile', 'admin', 'tanks'].includes(n) && !session) n = 'login';
   if (n === 'login' && session) n = 'profile';
+  if (n === 'tanks' && !canTanks()) n = 'home';
+  if (n === 'admin' && !isAdmin()) n = 'home';
   page = n;
   document.querySelectorAll('.page').forEach((el) => { el.hidden = el.id !== 'p-' + n; });
   document.querySelectorAll('#headerNav [data-nav]').forEach((b) => b.classList.toggle('on', b.dataset.nav === n));
   if (push && location.hash !== '#' + n) history.pushState(null, '', '#' + n);
   window.scrollTo(0, 0);
-  if (n === 'profile') openPanel();
+  if (n === 'profile') drawProfile();
+  if (n === 'tanks') drawTanks();
+  if (n === 'admin') openAdmin();
 }
 document.addEventListener('click', (e) => {
   const a = e.target.closest('[data-nav]');
@@ -301,7 +436,7 @@ document.addEventListener('click', (e) => {
 });
 addEventListener('popstate', () => go(location.hash.slice(1), false));
 const h0 = location.hash.slice(1);
-go(PAGES.includes(h0) && h0 !== 'profile' ? h0 : 'home', false);
+go(['home', 'about', 'login'].includes(h0) ? h0 : 'home', false);
 load();
 </script>
 </body>
